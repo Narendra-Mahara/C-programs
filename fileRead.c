@@ -27,14 +27,23 @@ int main()
     // }
 
     // fscanf(); -------------------------> returns EOF when EOF is reached
-    char hello[100];
-    fscanf(fp, "%s", hello);    // read the first word of the file
-    printf("%s\n", hello); // Print the first word of the file
-    while (fscanf(fp,"%s", hello) != EOF)    
+    char header[100]; // Buffer to store header lines
+    int sn;
+    char name[50];
+    char grade;
+
+    // Skip the first two lines (header)
+    fgets(header, sizeof(header), fp); // output: This is student record i.e one line
+    printf("%s", header);
+    fgets(header, sizeof(header), fp); // output: SN Name Grade i.e one line
+    printf("%s", header);
+
+    // Read and print each record
+    while (fscanf(fp, "%d %s %c", &sn, name, &grade) != EOF)
     {
-        printf("%s\n", hello); // Print each word
+        printf("%d\t%s\t%c\n", sn, name, grade);
     }
-    
+
     fclose(fp);
     return 0;
 }
